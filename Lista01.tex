@@ -7,8 +7,6 @@
 \usepackage{mathrsfs}
 \usepackage{amsfonts}
 \usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
-\usepackage[all,cmtip]{xy}
-\newcommand{\fblock}[1]{*++[F]{#1}}
 \begin{document}
 \begin{titlepage}
   \centering
@@ -17,7 +15,7 @@
   \vspace{1cm}
   {\scshape\Large SEL0611- Fundamentos de Controle\par}
   \vspace{1.5cm}
-  {\huge\bfseries Lista de Exercícios No.4\par}
+  {\huge\bfseries Lista de Exercícios No.1\par}
   \vspace{2cm}
   {\Large\itshape Pedro Morello Abbud \par}
   \vspace{1cm}
@@ -34,19 +32,141 @@
 \section*{Exercícios}
 \begin{enumerate}
   \item  Um sistema cujo comportamento é definido ou especificado por uma equação 
-    diferencial ordinária é chamado ”sistema dinâmico”. Um sistema dinamico com uma ˆ
-entrada $u(t)$ e uma saída $y(t)$ pode ser representado graficamente por um diagrama
-de blocos, caso nos interessemos apenas pelo comportamento da entrada, da saída,
-e da relação entre as mesmas.
+    diferencial ordinária é chamado ``sistema dinâmico". Um sistema dinâmico com
+    uma entrada $u(t)$ e uma saída $y(t)$ pode ser representado graficamente por
+    um diagrama de blocos, caso nos interessemos apenas pelo comportamento da 
+    entrada, da saída, e da relação entre as mesmas.
 \begin{enumerate}[label=(\alph*)]
     \begin{figure}
-    \[
-\xymatrix{
-  \ar[r]^{Input}& *++[F]{EDO}\ar[r]   
-}
-\]
-\end{figure}
-  \item Verifique se a figura acima
+      \label{fig:1}
+    \end{figure}
+  \item Verifique se a figura acima contém informações relevantes.
+  \item O que poderia ser introduzido no lugar da Figura~\ref{fig:1}, no lugar 
+    da sigla E.D.O?
 \end{enumerate}
+
+\emph{Resolução:}
+
+\begin{enumerate}[label=(\alph*)]
+  \item A figura~\ref{fig:1} nos mostra que em sistemas dinâmicos podemos 
+    correlacionar a entrada e a saída de um sistema dinâmico através de uma 
+    Equação Diferencial Ordinária. A fim de facilitar a visualização do 
+    dessa correlação, podemos usar a ferramenta gráfica chamada Diagrama de 
+    Blocos.
+  \item Podemos introduzir no lugar da sigla Equação Diferencial Ordinária, uma 
+    função de transferência, pois relaciona um conjunto de dados ou informações 
+    de entrada e os modifica em um novo conjunto de dados na saída. Quando temos 
+    sistemas casuais e  lineares invariantes no tempo, a função de transferência
+    relaciona a entrada e a saída através da transformada de Laplace.
+\end{enumerate}
+\item Comprove que um sistema com entrada $u(t)$ e saída $y(t)$, cujo comportamento
+  dinâmico é descrito por uma equação diferencial da forma:
+  \begin{equation}
+    \label{eq:1}
+    \frac{d^{n}y}{dt^{n}}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+\cdots+a_1\frac{dy}{dt} =
+    u(t)
+  \end{equation}
+  tem uma função de transferência na forma:
+  \begin{equation}
+    \label{eq:2}
+    \frac{Y(s)}{U(s)}=\frac{1}{s^n + a_{n-1}+\cdots+a_1s+a_o}
+  \end{equation}
+  Obs: Uma função de transferência só é definida para condições inicias nulas, 
+  i.e.\,\ para:
+  \begin{equation}
+    \label{eq:3}
+    y^{(0)}(0)=y^{(1)}(0)=\cdots=y^{(n-1)}(0)=0
+  \end{equation}
+
+  \emph{Resolução}
+
+  Se sabemos que as transformadas de Laplace abaixo são verdadeiras:
+  \begin{align}
+    \label{derivada}
+\mathcal{L}\{y'\}
+  &= s \mathcal{L}\{y\} - y(0) \\
+  \mathcal{L}\{y''\}
+  &= s^2 \mathcal{L}\{y\} - s y(0) - y'(0) \\
+  \begin{split} 
+  \mathcal{L}\left\{ y^{(n)} \right\}
+&=  s^n \mathcal{L}\{y\} - s^{n - 1} y(0) - s^{n - 2} y'(0)- \cdots - y^{(n - 1)}(0)\\
+  &= s^n\mathcal{L}\{y\} - \sum_{k=0}^{n-1}(s^{(n-1-k)}y^{(k)}(0))
+\end{split}
+\end{align}
+E que a transformada de Laplace é linear como descrito abaixo:
+\begin{align}
+  \mathcal{L}\left\{a f(t) + b g(t) \right\}
+ &= a \mathcal{L}\left\{ f(t) \right\} +
+    b \mathcal{L}\left\{ g(t) \right\}
+\end{align}
+É fácil inferir que:
+\begin{align}
+  \mathcal{L}\left\{\frac{d^{n}y}{dt^{n}}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+
+    \cdots+a_1\frac{dy}{dt}+a_{0}\right\} & = \mathcal{L}\left\{u(t)\right\}  \\
+=  Y(s)\mathcal{L}\left\{\frac{d^{n}}{dt^{n}}+a_{n-1}\frac{d^{n-1}}{dt^{n-1}}+
+  \cdots+a_1\frac{d}{dt}+a_{0}\right\}&=U(s)\\
+  \begin{split}
+    =s^n - \sum_{k=0}^{n-1}(s^{(n-1-k)}y^{(k)}(0))+\cdots\\+a_{2}\left( s^2 - s y(0) - y'(0) \right)+a_{1}\left(s - y(0)\right)+a_0&=\frac{U(s)}{Y(s)}
+\end{split}
+\end{align}
+Considerando todas as condições inicias zero, e tomando o inverso de cada lado, 
+temos novamente a equação (\ref{eq:2}):
+\begin{align*}
+    \frac{Y(s)}{U(s)}=\frac{1}{s^n + a_{n-1}+\cdots+a_1s+a_o} 
+  \end{align*}
+como queríamos demonstrar.
+\item Para o sistema do exercício anterior verifique que a razão $Y(s)/U(s)$ 
+  não será independente de $U(s)$ quando as condições iniciais não forem todas nulas.
+
+  Tal observação pode ser notada ao observar a propriedade básica que relaciona a 
+  derivada de uma função no tempo com seu equivalente em frequência, mostrados 
+  na equação~\ref{derivada}, enxergamos ali que se a condição inicial não for 
+  nula, não poderemos manipular o termo $Y(s)$ de forma independente, pois qualquer 
+  constante não-nula dada pela condição inicial não é de fato 
+  multiplicada por esse termo.
+\item Escreva um trecho de \emph{MATLAB} que declare os polinômios do numerador e do 
+  denominador, e que determine e retorne a função de transferência abaixo.\\
+  Escolha nomes que lhe convier e empregue o comando ``tf ” discutido em 
+  sala-de-aula.
+  \begin{equation}
+    \label{eq:4}
+    H(s)=\frac{1}{s^2 +0,2 s + 1}
+  \end{equation}
+
+  \emph{Resolução}
+     \begin{lstlisting}[label=matlab:1, caption=Código em MATLAB para a função de transferência $g_1(s)$ associada a equação~\ref{eq:4}]
+      num=1 
+      denom= [1 0.2 5]
+      g1=tf(num,denom)
+    \end{lstlisting}
+
+\item Dada a equação diferencial ordinária (EDO): 
+  \begin{equation}
+    \label{eq:5}
+    y''(t)+2y'(t)+5y(t)= 10x(t)
+  \end{equation}
+  onde $y(t)$ e $x(t)$ são respectivamente a saída e a entrada de um circuito; 
+  determine a função de transferência correspondente. 
+  
+  \emph{Resolução}
+
+  Aplicando a transformando de Laplace em ambos os lados, obtemos:
+
+\begin{align}
+  \mathcal{L}\left\{y''(t)+2y'(t)+5y(t)\right\}=\mathcal{L}\left\{10x(t)\right\}\\
+  =s^2Y(S)+2sY(S)+5Y(S)=10 X(S)\\
+  =\frac{Y(S)}{X(S)}=\frac{1}{s^2+2s+5}
+  \end{align}
+  Que é a função de transferência correspondente do circuito.
+\item Escolha nomes apropriados (letra minúscula é melhor) e escreva um trecho de 
+  \emph{MATLAB} para declarar os polinômios do numerador e do denominador, e produzir 
+  a função de transferência associada a equação (\ref{eq:4}).
+
+  \emph{Resolução}
+
+     \begin{lstlisting}[label=matlab:2, caption=Código em MATLAB para a função de transferência $g_1(s)$ associada a equação~\ref{eq:4}]
+      g1=tf(1,[1 0.2 1]) 
+    \end{lstlisting}
+ 
 \end{enumerate}
 \end{document}
