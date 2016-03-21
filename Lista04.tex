@@ -1,0 +1,94 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\begin{document}
+\begin{titlepage}
+  \centering
+  \includegraphics[width=0.33\textwidth]{usp}\par\vspace{1cm}
+  {\scshape\LARGE Universidade de São Paulo\par}
+  \vspace{1cm}
+  {\scshape\Large SEL0611- Fundamentos de Controle\par}
+  \vspace{1.5cm}
+  {\huge\bfseries Lista de Exercícios No.4\par}
+  \vspace{2cm}
+  {\Large\itshape Pedro Morello Abbud \par}
+  \vspace{1cm}
+  Número USP 8058718
+  \vfill
+  Disciplina minsitrada por\par
+  Professor Doutor B.J.Mass
+
+  \vfill 
+  % Bottom of the page
+  {\large \today\par}
+\end{titlepage}
+\newpage
+\section*{Exercícios}
+\begin{enumerate}
+  \item Considere um sistema com uma única entrada $u(t)$ e uma única saída $y(t)$, 
+    cujo comportamento dinâmico é descrito por uma equação diferencial ordinária 
+    (EDO) da forma:
+
+    \begin{align}
+      \label{edo:1}
+      \frac{d^n y}{dt^n}+b_{n-1}\frac{d^{n-1} y}{dt^{n-l}}+\cdots+b_1 \frac{dy}{dt}+b_0 y = u(t)
+    \end{align}
+\begin{enumerate}[label=(\alph*)]
+  \item Convença-se de que para um sistema assim o modelo dinâmico mais natural 
+é a própria EDO (\ref{edo:1}).
+\item Em complexidade o nível de modelagem seguinte e a função de transferência 
+(FT) correspondente. Verifique que para este caso o modelo corresponde à:
+
+\begin{align}
+  \label{edo:2}
+  \frac{Y(S)}{U(S)}= \frac{1}{s^n + b_{n-1}s^{n-1}+\cdots+b_1 s+ b_0}
+\end{align}
+
+  \end{enumerate}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Sabemos que 
+  \item Da equação diferencial ordinária (\ref{edo:1}) podemos induzir:
+    \begin{align*}
+      \frac{1}{\frac{d^n}{dt^n}+b_{n-1}\frac{d^{n-1} }{dt^{n-l}}+\cdots+b_1 \frac{d}{dt}+b_0}  &= \frac{y}{u(t)}
+    \end{align*}
+    Aplicando a transformada de Laplace em ambos os lados da igualdade:
+    \begin{align*}
+      \mathbb{L}\left\{ \frac{1}{\frac{d^n}{dt^n}+\frac{d^{n-1}}{dt^{n-l}}+\cdots+b_1 \frac{d}{dt}+b_0} \right\}  &= \frac{Y(S)}{U(S)}
+    \end{align*}
+    Como sabemos que $\mathbb{L}\left\{\frac{d^n}{dt^n}\right\}=s^n$, conseguimos então
+    deduzir a equação diferencial ordinária de número (\ref{edo:2}).
+\end{enumerate}
+\item Obtenha o modelo EDO de um sistema cujo modelo TF e simplesmente:
+  \begin{align}
+    \label{edo:3}
+    H(S)=\frac{1}{s^2 + 0,2s+1}
+  \end{align}
+  Podemos obter o modelo da EDO trocando o domínio da função de transferência da
+  frequência para o tempo:
+
+\item Para um circuito eletrico descrito por:
+  \begin{align}
+    \frac{d^2 y}{dt^2}+2\frac{dy}{dt}+5y(t)= 10x(t)
+  \end{align} 
+    onde a entrada é $x(t)$ e a saída é $y(t)$, o modelo EDO é uma única equação de $2^a$ ordem.
+    Por outro lado, o modelo EDO de um motor CC por exemplo, é normalmente um par de equações de $1^a$ ordem: 
+    \begin{align}
+      \label{edo:4}
+    \begin{cases}
+      v= Ri+ L\frac{di}{dt}+K_E \omega \\
+      J\frac{d \omega}{dt}=K_T i - K_B \omega 
+    \end{cases}
+  \end{align}
+  No caso geral e sempre possível transformar uma EDO de ordem $n$, em $n$ EDOs de
+  ordem ``um'' cada uma. Verifique se e possível reescrever o modelo da EDO representado
+  em (\ref{edo:4}), na forma de duas EDOs de primeira ordem.
+
+\end{enumerate}
+\end{document}

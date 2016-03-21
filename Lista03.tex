@@ -1,0 +1,152 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{gnuplot-lua-tikz}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\begin{document}
+\begin{titlepage}
+  \centering
+  \includegraphics[width=0.33\textwidth]{usp}\par\vspace{1cm}
+  {\scshape\LARGE Universidade de São Paulo\par}
+  \vspace{1cm}
+  {\scshape\Large SEL0611- Fundamentos de Controle\par}
+  \vspace{1.5cm}
+  {\huge\bfseries Lista de Exercícios No.3\par}
+  \vspace{2cm}
+  {\Large\itshape Pedro Morello Abbud \par}
+  \vspace{1cm}
+  Número USP 8058718
+  \vfill
+  Disciplina minsitrada por\par
+  Professor Doutor B.J.Mass
+
+  \vfill 
+  % Bottom of the page
+  {\large \today\par}
+\end{titlepage}
+\newpage
+\section*{Exercícios}
+Dada a equação diferencial ordinária (EDO):
+
+\begin{align}
+  y''(t)+2y'(t)+5y(t)=10x(t)
+  \label{edo:1}
+\end{align}
+Onde $y(t)$ e $x(t)$ são respectivamente a saída e a entrada de um certo sistema, desejamos
+construir uma ``imagem de raios-x” (ou ``eletrocardiograma”) do sistema, que revele a
+dinâmica do mesmo. Em nosso contexto, diagramas de \emph{Bode} são verdadeiras ``imagens
+de raios-x”, pois revelam coisas que não enxergamos pela mera inspeção direta da EDO.\\
+Precisamos para essa visualização de algo imprescindível; um aplicativo computacional
+númerico, talhado para o projeto de sistemas de controle. Duas alternativas foram apresentadas
+em sala de aula: \emph{Scilab} e \emph{MATLAB}.
+\begin{enumerate}
+  \item Obtenha à mão, a função de transferência $G_{1}(s)= Y(s)/X(s)$ a partir 
+    da EDO (\ref{edo:1}) acima.
+
+    Sabemos que:
+    \begin{align}
+      x(t)=\frac{y''(t)}{10}+\frac{y'(t)}{5}+\frac{y(t)}{2} \nonumber
+    \end{align} 
+    Logo temos:
+    \begin{align*}
+      G(s)=\frac{Y(s)}{X(s)}\\
+      =\frac{\mathcal{L}\{y(t)\}}{\mathcal{L}\{x(t)\}} \\
+      =\frac{Y(s)}{\mathcal{L}\{\frac{y''(t)}{10}+\frac{y'(t)}{5}+\frac{y(t)}{2}\}}\\
+      = \frac{10Y(s)}{Y(S)(s^2+2s+1)}\\
+      = \frac{10}{s^2+2s+1}
+    \end{align*}
+
+  \item Obtenha à mão, a função de transferência $G_2(s) = X(s)/Y(s)$ a partir de (\ref{edo:1}), observando
+    que, naturalmente $G_2(s) = 1/G_1(s) = G_1(s)^{-1}$
+
+    De forma análoga ao exercício anterior sabemos que:
+    \begin{align}
+      x(t)=\frac{y''(t)}{10}+\frac{y'(t)}{5}+\frac{y(t)}{2} \nonumber
+    \end{align} 
+    Logo temos:
+    \begin{align*}
+      G(s)=\frac{X(s)}{Y(s)}=\frac{\mathcal{L}\{x(t)\}}{\mathcal{L}\{y(t)\}}\\
+      =\frac{\mathcal{L}\{\frac{y''(t)}{10}+\frac{y'(t)}{5}+\frac{y(t)}{2}\}}{Y(s)}\\
+      =  \frac{Y(S)(s^2+2s+1)}{10Y(s)}\\
+      =\frac{s^2+2s+1}{10}\\
+      =\frac{s^2}{10}+\frac{s}{5}+\frac{1}{10}
+    \end{align*}
+    Que é exatamente $G_1^{-1}$, como queríamos demonstrar.
+  \item Observe que, como $G_1(s)$ é uma função de transferência \emph{``estritamente própria”},
+    e  $G_2(s)$ é ``imprópria”. Os sistemas físicos de nosso interesse (engenharia de controle)
+    só excepcionalmente terão funcão de transferência imprópria. Em nosso contexto 
+    \emph{(Fundamentos de Controle)} consideraremos inadmissíveis funções de transferência
+    impróprias, i.e.\, com numerador com grau maior que o do denominador. 
+  \item Empregando o comando ``tf”, escreva uma declaração em \emph{MATLAB}, que declare
+    $G_1(s)$ com o nome ``g1”. Empregue apenas minúsculas.
+    \begin{lstlisting}[label=matlab:1, caption=Código em MATLAB para a função de transferência $G_1(s)$]
+      g1=tf(10,[10 2 1])
+    \end{lstlisting}
+  \item  Consulte \emph{www.scilab.org} e verifique que comando do Scilab e análogo ou equivalente
+    ao comando ``bode” do MATLAB.\\Descreva suscintamente cada uma das 6 formas
+    para este comando do SCILAB.
+
+    \begin{lstlisting}
+      bode(sl, [fmin, fmax] [,step] [,comments] )
+    \end{lstlisting}
+    Traça um diagrama de bode tomando como argumentos de entrada: um sistema linear, os limites 
+    mínimo e máximo da frequência, um degrau logarítimico descrito por um número 
+    real e um vetor de strings como legenda, com a frequência dada em $hz$.
+    \vfill
+    \begin{lstlisting}
+      bode(sl, [fmin, fmax] [,step] [,comments] [,"rad"] )
+    \end{lstlisting}
+    Traça um diagrama de bode tomando como argumentos de entrada: um sistema linear, os limites 
+    mínimo e máximo da frequência, um degrau logarítimico descrito por um número 
+    real e um vetor de strings como legenda, no entanto mostra a frequência
+    em $rad/s$ ao invês de $hz$.
+
+    \begin{lstlisting}
+      bode(sl, frq [,comments] )
+    \end{lstlisting}
+    Traça um diagrama de bode tomando como argumentos de entrada: um sistema linear, 
+    uma matriz de frequência com uma coluna para cada subsistema linear e um vetor
+    de strings como legenda, com a frequência dada em $hz$
+
+    \begin{lstlisting}
+      bode(sl, frq [,comments] [,"rad"] )
+    \end{lstlisting}
+    Traça um diagrama de bode tomando como argumentos de entrada: um sistema linear, 
+    uma matriz de frequência com uma coluna para cada subsistema linear e um vetor
+    de strings como legenda, no entanto, mostra a frequência em $rad/s$ ao invês de $hz$.
+
+    \begin{lstlisting}
+      bode(frq, db, phi [,comments] )
+    \end{lstlisting}
+    Traça um diagram de bode tomando como argumentos de entrada: uma matriz de frequência,
+    uma matriz de magnitudes dada em $Db$, uma matriz de fases dada em graus e comentários
+    como legendas na forma de um vetor.
+
+    \begin{lstlisting}
+      bode(frq, repf [,comments] [,"rad"] )
+    \end{lstlisting}
+    Traça um diagram de bode tomando como argumentos de entrada: uma matriz de frequência,
+    uma matriz de magnitudes dada em $Db$, uma matriz de fases dada em graus e comentários
+    como legendas na forma de um vetor, no entanto, com a frequência em $rad/s$ ao invês de
+    $hz$.
+  \item Empregando a forma mais simples do comando ``bode” do MATLAB, s, imprima o
+    par de gráficos ou diagramas obtidos para a funcão de transferência $G_1(s)$ acima
+    referida. Retorne ao professor o par de gráficosmpressos numa única folha A4.
+    \begin{lstlisting}[label=matlab:2, caption=Código em MATLAB para traçar o diagrama de Bode da função de transferência $G_1(s)$]
+      g1=tf(10,[10 2 1]) 
+      bode(g1)
+    \end{lstlisting}
+    \newpage 
+    \begin{figure}
+\label{fig:1}
+      \include{bode1}
+      \centering
+      \caption{Diagrama de Bode para a função de transferência $G_1(s)=\frac{10}{s^2+2s+1}$}
+    \end{figure}
+\end{enumerate}
+\end{document}
