@@ -103,10 +103,10 @@ E que a transformada de Laplace é linear como descrito abaixo:
 \begin{align}
   \mathcal{L}\left\{\frac{d^{n}y}{dt^{n}}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+
     \cdots+a_1\frac{dy}{dt}+a_{0}\right\} & = \mathcal{L}\left\{u(t)\right\}  \\
-=  Y(s)\mathcal{L}\left\{\frac{d^{n}}{dt^{n}}+a_{n-1}\frac{d^{n-1}}{dt^{n-1}}+
+  Y(s)\mathcal{L}\left\{\frac{d^{n}}{dt^{n}}+a_{n-1}\frac{d^{n-1}}{dt^{n-1}}+
   \cdots+a_1\frac{d}{dt}+a_{0}\right\}&=U(s)\\
   \begin{split}
-    =s^n - \sum_{k=0}^{n-1}(s^{(n-1-k)}y^{(k)}(0))+\cdots\\+a_{2}\left( s^2 - s y(0) - y'(0) \right)+a_{1}\left(s - y(0)\right)+a_0&=\frac{U(s)}{Y(s)}
+    s^n - \sum_{k=0}^{n-1}(s^{(n-1-k)}y^{(k)}(0))+\cdots\\+a_{2}\left( s^2 - s y(0) - y'(0) \right)+a_{1}\left(s - y(0)\right)+a_0&=\frac{U(s)}{Y(s)}
 \end{split}
 \end{align}
 Considerando todas as condições inicias zero, e tomando o inverso de cada lado, 
